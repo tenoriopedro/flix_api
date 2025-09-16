@@ -16,6 +16,7 @@ class MovieCreateListView(generics.ListCreateAPIView):
             return MovieListDetailSerializer
         return MovieModelSerializer
 
+
 class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermission)
     queryset = Movie.objects.all()
@@ -24,6 +25,7 @@ class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method == "GET":
             return MovieListDetailSerializer
         return MovieModelSerializer
+
 
 class MovieStatsView(views.APIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermission)
@@ -37,7 +39,7 @@ class MovieStatsView(views.APIView):
         total_reviews = Review.objects.count()
         average_stars = Review.objects.aggregate(
             avg_stars=Avg('stars'))['avg_stars']
-        
+
         data = {
             'total_movies': total_movies,
             'movies_by_genre': movies_by_genre,

@@ -1,0 +1,3 @@
+[flake8]
+exclude = venv, __pychache__, .env, migrations, settings.py, tests.py
+select = E,F,N,W

@@ -44,7 +44,7 @@ class MovieStatsView(views.APIView):
             'total_movies': total_movies,
             'movies_by_genre': movies_by_genre,
             'total_reviews': total_reviews,
-            'avegare_stars': round(
+            'average_stars': round(
                 average_stars, 1
             ) if average_stars else 0,
         }

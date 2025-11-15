@@ -1,40 +1,64 @@
-# 🎬 Movie Catalog API
+# 🎬 Movie Catalog API (Django REST Framework)
 
-A Django REST Framework project that provides a structured API for managing movies, genres, actors, and reviews.  
-It includes **JWT-based authentication**, **model-level permission control**, and **data validation rules**.  
-
----
-
-## 🚀 Features
-
-- **Movies**
-  - CRUD operations with validation (`resume` ≤ 200 chars, release date ≥ 1900).  
-  - Links to genres and actors.  
-  - Returns average review rating per movie.  
-  - Statistics endpoint with total movies, reviews, and average stars.  
-
-- **Genres**
-  - Simple management of movie genres.  
-
-- **Actors**
-  - CRUD operations with nationality and birthday fields.  
-  - Import actors via CSV with a custom management command.  
-
-- **Reviews**
-  - CRUD operations with validation (stars between 0–5).  
-  - Linked to movies, contributes to rating calculation.  
-
-- **Authentication**
-  - JWT authentication using [SimpleJWT](https://django-rest-framework-simplejwt.readthedocs.io/).  
-  - Endpoints for token obtain, refresh, and verify.  
-
-- **Permissions**
-  - Custom `GlobalDefaultPermission` enforces model-based permissions (`add`, `view`, `change`, `delete`).  
+<p align="center">
+  <strong>Este é o motor de backend para o <a href="https://github.com/tenoriopedro/StreamlitApp" target="_blank">Flix App (Cliente Streamlit)</a>.</strong>
+</p>
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Visão Geral
 
-- **Backend**: Django, Django REST Framework  
-- **Auth**: djangorestframework-simplejwt (JWT tokens)  
-- **Database**: SQLite (default, can be swapped for PostgreSQL/MySQL) 
+Este projeto é uma API RESTful robusta, construída com **Django REST Framework (DRF)**, para gerir um catálogo de filmes. Ela fornece lógica de negócio, persistência de dados e autenticação segura para qualquer cliente frontend.
+
+## 🏛️ Arquitetura (Cliente-Servidor)
+
+Esta API foi desenhada como o "Servidor" (Backend) num ecossistema Cliente-Servidor.
+
+
+
+* **Cliente (Frontend):** [Flix App (Streamlit)](https://github.com/tenoriopedro/StreamlitApp)
+    * Consome esta API para todas as operações de dados.
+    * [Ver a demo ao vivo do cliente](https://appapp-nn6fq8ue8qikftrqoi9kfm.streamlit.app/)
+
+* **Servidor (Este Projeto):** `Movie Catalog API (DRF)`
+    * Expõe endpoints RESTful.
+    * Gere a autenticação e permissões via **JWT (SimpleJWT)**.
+    * Valida dados e interage com a base de dados (PostgreSQL/SQLite).
+
+---
+
+### 🛠️ Funcionalidades Principais (Backend)
+
+* **Autenticação Segura:** Endpoints de `Obter`, `Refresh` e `Verificar` Tokens **JWT** (via `djangorestframework-simplejwt`).
+* **Controlo de Permissão:** Permissões personalizadas (`GlobalDefaultPermission`) ao nível do modelo que verificam `add`, `view`, `change`, `delete`.
+* **Endpoints de Estatísticas:** Um endpoint dedicado (`/stats`) que calcula e retorna o total de filmes, críticas e a média de classificações.
+* **Validação de Dados:** Regras de negócio aplicadas ao nível do *serializer* e do modelo (ex: `resume` ≤ 200 caracteres, `stars` entre 0-5).
+* **Gestão de Atores (CSV):** Inclui um *comando de gestão* (management command) personalizado para importar atores em massa a partir de um ficheiro CSV.
+
+---
+
+### 💻 Stack Tecnológico
+
+* **Framework:** Django
+* **API:** Django REST Framework (DRF)
+* **Autenticação:** djangorestframework-simplejwt (JWT)
+* **Base de Dados:** PostgreSQL (Produção) / SQLite (Desenvolvimento)
+
+---
+
+### Endpoints Principais
+
+<details>
+  <summary>Clique para ver um resumo dos endpoints da API</summary>
+  
+  <ul>
+    <li><code>/api/v1/token/</code> (Obter Token JWT)</li>
+    <li><code>/api/v1/token/refresh/</code> (Refresh Token)</li>
+    <li><code>/api/v1/movies/</code> (GET, POST)</li>
+    <li><code>/api/v1/movies/&lt;id&gt;/</code> (GET, PUT, DELETE)</li>
+    <li><code>/api/v1/genres/</code> (GET, POST)</li>
+    <li><code>/api/v1/actors/</code> (GET, POST)</li>
+    <li><code>/api/v1/reviews/</code> (GET, POST)</li>
+    <li><code>/api/v1/stats/</code> (GET)</li>
+  </ul>
+</details>
